@@ -1,4 +1,16 @@
-<?php include '../config.php'; ?>
+<?php 
+include '../config.php'; 
+include '../../dbconnect.php';
+
+if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = htmlspecialchars($_POST['categoryName']);
+    $stmt = $pdo->prepare("INSERT INTO categories (name) VALUES (:name)");
+    $stmt->execute([
+        'name' => $name
+    ]);
+    header('Location: list.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,8 +63,8 @@
                     
                     <form action="#" method="post">
                         <div class="form-group">  
-                            <label for="name">Name</label>
-                            <input type="text" placeholder="Enter Category Name" class="form-control w-50" name="name" id="name" required>
+                            <label for="name">Category Name</label>
+                            <input type="text" placeholder="Enter Category Name" class="form-control w-50" name="categoryName" id="name" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
