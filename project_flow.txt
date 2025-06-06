@@ -69,3 +69,15 @@ Category [hardcode]
     - CRUD (Categories)
     - Post list 
     - Post detail 
+
+
+
+
+---------------------------------------------------------------
+
+- students
+  - id [PK, AI]
+  - name [Varchar] - text 
+  - gender [Varchar] - radio | select option
+  - address [Text] - textarea
+  - 
