@@ -5,6 +5,7 @@ Features
 --------
 - User (reader, writer, admin)
 - Posts 
+  - category
 
 
 Posts
@@ -18,12 +19,13 @@ User Journey
 ------------
 Reader  -> Can view all posts 
         -> detail view
+        -> filter by category
 
 Juu     -> Register 
         -> Login
         -> Profile *
-        -> my own posts (public, reject)
-        -> crete, edit, delete
+        -> my own posts (create, public, reject)
+        -> crete, edit, delete, retrieve
 
 Mg MG   -> Login
         -> all posts <- writers' created posts
@@ -32,6 +34,7 @@ Mg MG   -> Login
         -> Reject (reason)
 
 Category [hardcode]
+ - Create, retrieve, update, delete
 
 
 1. DB create
