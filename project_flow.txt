@@ -84,3 +84,11 @@ Category [hardcode]
   - gender [Varchar] - radio | select option
   - address [Text] - textarea
   - 
+
+
+
+- TODO 
+  - Auth (Register / Login)
+  - Create Post by author 
+  - Public / reject by admin 
+  - Retrieve posts for readers
