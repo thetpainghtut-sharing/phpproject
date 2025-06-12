@@ -88,7 +88,23 @@ Category [hardcode]
 
 
 - TODO 
-  - Auth (Register / Login)
+  - 
   - Create Post by author 
   - Public / reject by admin 
   - Retrieve posts for readers
+
+
+- Done  
+  - Auth (Register / Login)
+    - Register 
+      - create form 
+      - submit form 
+      - save into user table
+      - duplicate email case ** to fix 
+    - Login 
+      - create form 
+      - submit form 
+      - retrieve one user with email
+      - verify password 
+      - redirect
+  

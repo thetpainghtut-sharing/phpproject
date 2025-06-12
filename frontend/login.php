@@ -2,24 +2,25 @@
   include '../dbconnect.php';
 
   if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = htmlspecialchars($_POST['userName']);
     $email = htmlspecialchars($_POST['userEmail']);
     $password = htmlspecialchars($_POST['userPassword']);
-    $confirmPassword = htmlspecialchars($_POST['userConfirmPassword']);
+    // echo $email .','. $password;
 
-    // echo $name .','. $email .','. $password .','. $confirmPassword;
-    if($password != $confirmPassword) {
-      header('Location: register.php');
-      exit();
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->execute([
+      'email' => $email
+    ]);
+    $user = $stmt->fetch();
+    // var_dump($user);
+    if ($user) {
+      if (password_verify($password, $user['password'])) {
+        // session_start();
+        // $_SESSION['user'] = $user;
+        header('Location: index.php');
+      } else {
+        header('Location: login.php');
+      }
     } else {
-      $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-      // echo $hashedPassword;
-      $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
-      $stmt->execute([
-        'name' => $name,
-        'email' => $email,
-        'password' => $hashedPassword
-      ]);
       header('Location: login.php');
     }
   }
@@ -45,12 +46,8 @@
             <div class="row justify-content-md-center">
                 <!-- Blog entries-->
                 <div class="col-lg-6">
-                  <h3>Register</h3>
+                  <h3>Login</h3>
                   <form action="#" method="post" class="p-4 p-md-5 border rounded-3 bg-light">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingInputName" placeholder="shewu" name="userName" required>
-                      <label for="floatingInputName">Name</label>
-                    </div>
                     <div class="form-floating mb-3">
                       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="userEmail" required>
                       <label for="floatingInput">Email address</label>
@@ -59,12 +56,8 @@
                       <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="userPassword" required>
                       <label for="floatingPassword">Password</label>
                     </div>
-                    <div class="form-floating mb-3">
-                      <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="ConfirmPassword" name="userConfirmPassword" required>
-                      <label for="floatingConfirmPassword">Confirm Password</label>
-                    </div>
                     <div class="d-grid gap-2">
-                      <button class="btn btn-primary" type="submit">Register</button>
+                      <button class="btn btn-primary" type="submit">Login</button>
                     </div>
                   </form>
                 </div>
