@@ -1,17 +1,30 @@
 <?php 
   include '../dbconnect.php';
-
+  session_start();
+  $errors = [];
   if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = htmlspecialchars($_POST['userName']);
     $email = htmlspecialchars($_POST['userEmail']);
     $password = htmlspecialchars($_POST['userPassword']);
     $confirmPassword = htmlspecialchars($_POST['userConfirmPassword']);
-
     // echo $name .','. $email .','. $password .','. $confirmPassword;
-    if($password != $confirmPassword) {
-      header('Location: register.php');
-      exit();
-    } else {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->execute([
+      'email' => $email
+    ]);
+    $user = $stmt->fetch(); // boolean - false
+    // var_dump($user);
+    if($password != $confirmPassword) { // password not match
+      $errors['password'] = 'Password not match';
+      // header('Location: register.php');
+      // var_dump($errors);
+      // exit();
+    } else if ($user) { // email exist
+      $errors['email'] = 'Email already exist';
+      // header('Location: register.php');
+      // var_dump($errors);
+      // exit();
+    } else { // email not exist
       $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
       // echo $hashedPassword;
       $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
@@ -54,6 +67,9 @@
                     <div class="form-floating mb-3">
                       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="userEmail" required>
                       <label for="floatingInput">Email address</label>
+                      <div class="text-danger">
+                        <?php if (isset($errors['email'])) { echo $errors['email']; } ?>
+                      </div>
                     </div>
                     <div class="form-floating mb-3">
                       <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="userPassword" required>
@@ -62,6 +78,9 @@
                     <div class="form-floating mb-3">
                       <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="ConfirmPassword" name="userConfirmPassword" required>
                       <label for="floatingConfirmPassword">Confirm Password</label>
+                      <div class="text-danger">
+                        <?php if (isset($errors['password'])) { echo $errors['password']; } ?>
+                      </div>
                     </div>
                     <div class="d-grid gap-2">
                       <button class="btn btn-primary" type="submit">Register</button>

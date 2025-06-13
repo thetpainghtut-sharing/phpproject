@@ -1,6 +1,7 @@
 <?php 
   include '../dbconnect.php';
-
+  session_start();
+  
   if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = htmlspecialchars($_POST['userEmail']);
     $password = htmlspecialchars($_POST['userPassword']);
@@ -14,8 +15,8 @@
     // var_dump($user);
     if ($user) {
       if (password_verify($password, $user['password'])) {
-        // session_start();
-        // $_SESSION['user'] = $user;
+        $_SESSION['user'] = $user;
+        $_SESSION['login'] = true;
         header('Location: index.php');
       } else {
         header('Location: login.php');
