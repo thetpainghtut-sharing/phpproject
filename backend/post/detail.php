@@ -63,6 +63,12 @@ if(isset($_GET['id'])) {
                     
                     <div class="card mb-3">
                       <!-- <img src="..." class="card-img-top" alt="..."> -->
+                      <?php if($post['status'] == 'created'): ?>
+                      <div class="card-header">
+                        <a onclick="return confirm('Are you sure to public?')" href="edit.php?id=<?= $post['id'] ?>&key=publish" class="btn btn-info">Public</a>
+                        <a onclick="return confirm('Are you sure to reject?')" href="edit.php?id=<?= $post['id'] ?>&key=reject" class="btn btn-danger">Reject</a>
+                      </div>
+                      <?php endif; ?>
                       <div class="card-body">
                         <h5 class="card-title"><?= $post['title'] ?></h5>
                         <p class="card-text"><small class="text-body-secondary">Category: <strong><?= $post['category_name'] ?></strong></small></p>

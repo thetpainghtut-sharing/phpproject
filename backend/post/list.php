@@ -76,7 +76,7 @@ include '../../dbconnect.php';
                                 <td><?= $post['author_name'] ?></td>
                                 <td><?= $post['category_name'] ?></td>
                                 <td>
-                                  <?= $post['status'] ?>
+                                  <span class="badge rounded-pill text-bg-primary"><?= $post['status'] ?></span>
                                   <p><?= $post['created_at'] ?></p>
                                 </td>
                                 <td>
