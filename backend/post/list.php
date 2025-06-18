@@ -69,6 +69,14 @@ include '../../dbconnect.php';
                                 // print_r($posts);
                                 $i=1;
                                 foreach ($posts as $post):
+                                $color = "";
+                                if($post['status'] == 'published') {
+                                  $color = "text-primary";
+                                } else if($post['status'] == 'rejected') {
+                                  $color = "text-danger";
+                                } else if($post['status'] == 'created') {
+                                  $color = "text-success";
+                                }
                             ?>
                             <tr>
                                 <td><?= $i++; ?></td>  
@@ -76,7 +84,7 @@ include '../../dbconnect.php';
                                 <td><?= $post['author_name'] ?></td>
                                 <td><?= $post['category_name'] ?></td>
                                 <td>
-                                  <span class="badge rounded-pill text-bg-primary"><?= $post['status'] ?></span>
+                                  <strong class="<?= $color ?>"><?= $post['status'] ?></strong>
                                   <p><?= $post['created_at'] ?></p>
                                 </td>
                                 <td>

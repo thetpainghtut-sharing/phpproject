@@ -108,3 +108,19 @@ Category [hardcode]
       - verify password 
       - redirect
   
+
+
+Flow chat 
+
+Guest 
+-> Home , Register , Login 
+
+-> Home 
+      -> All Published Posts 
+          -> Post Detail 
+-> Register 
+      -> Fill Form  (create author account)
+
+-> Login 
+      -> fill form [email, password] -> author login 
+
