@@ -15,7 +15,7 @@
   if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = htmlspecialchars($_POST['title']);
     $category = htmlspecialchars($_POST['category']);
-    $content = htmlspecialchars($_POST['content']);
+    $content = $_POST['content'];
     $stmt = $pdo->prepare("INSERT INTO posts (title, category_id, content, author_id, status) VALUES (:title, :category, :content, :author_id, :status)");
     $stmt->execute([
       'title' => $title,
@@ -40,6 +40,13 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <!-- Bootstrap core Css -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <!-- include summernote css/js -->
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
     </head>
     <body>
         <!-- Responsive navbar-->
@@ -64,8 +71,8 @@
                       </select>
                     </div>
                     <div class="form-group mb-3">
-                      <label for="content">Content</label>
-                      <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+                      <label for="summernote">Content</label>
+                      <textarea class="form-control" id="summernote" name="content" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                   </form>
@@ -80,5 +87,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <script>
+          $(document).ready(function() {
+            $('#summernote').summernote();
+          });
+        </script>
     </body>
 </html>

@@ -124,3 +124,33 @@ Guest
 -> Login 
       -> fill form [email, password] -> author login 
 
+
+
+File upload
+===========
+
+Client           /          Server
+-browsers                   - local (apache / db / file storage)
+
+normal Flow
+- HTML form                 -> collect -> store DB
+
+file upload Flow
+- HTML form                 -> collect -> upload to file storage -> store DB
+
+
+
+
+
+
+
+
+
+
+
+
+- file upload 
+
+- summernode - text editor
+- pagination 
+- admin login 
